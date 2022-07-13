@@ -1,8 +1,9 @@
 name: Shell Commands
 
 on:
-  branches:
-    - develop
+  push:
+    branches:
+      - develop
 
 jobs:
   run-shell-commands:

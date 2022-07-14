@@ -2,7 +2,7 @@ name: Actions Workflow
 
 on: #[push, pull_request]
   repository_dispatch:
-    types: [test_result]
+    types: [build]
   # push:
   # pull_request:
   #   types: [closed, assigned, opened, reopened]
@@ -11,39 +11,33 @@ on: #[push, pull_request]
   #   - cron: "0/5 * * * *" # each * is: (1) minutes, (2) hours, (3) days of months, (4) months and (5) days of the week, respectively
   #   - cron: "0/6 * * * *"
 
+
 jobs:
-  run_if_failure:
-    if: ${{ !github.event.client_payload.passed }}
+  run-github-actions:
     runs-on: ubuntu-latest
     steps:
-      - env:
-          MESSAGE: ${{ github.event.client_payload.message }}
-        run: echo $MESSAGE  
-
-# jobs:
-#   run-github-actions:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: List Files
-#         run: |
-#           pwd
-#           ls -a
-#           echo $GITHUB_SHA
-#           echo $GITHUB_REPOSITORY
-#           echo $GITHUB_WORKSPACE
-#           echo ${{ github.token }}
-#       - name: Checkout
-#         uses: actions/checkout@v3.0.0 
-#       - name: List Files After Checkout
-#         run: |
-#           pwd
-#           ls -a           
-#       - name: Simple JS Action
-#         id: greet
-#         uses: actions/hello-world-javascript-action@v1.1
-#         with:
-#           who-to-greet: John
-#       - name: Log Greeting time
-#         run: echo "${{ steps.greet.outputs.time }}"
+      - name: payload
+        run: echo ${{ github.event.client_payload.env}}
+      - name: List Files
+        run: |
+          pwd
+          ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo ${{ github.token }}
+      - name: Checkout
+        uses: actions/checkout@v3.0.0 
+      - name: List Files After Checkout
+        run: |
+          pwd
+          ls -a           
+      - name: Simple JS Action
+        id: greet
+        uses: actions/hello-world-javascript-action@v1.1
+        with:
+          who-to-greet: John
+      - name: Log Greeting time
+        run: echo "${{ steps.greet.outputs.time }}"
 
           

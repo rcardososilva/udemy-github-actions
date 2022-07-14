@@ -1,7 +1,7 @@
 name: Actions Workflow
 
 on: #[push, pull_request]
-  push:
+  #push:
 
 #trigger update file/folder
     # paths:
@@ -26,9 +26,9 @@ on: #[push, pull_request]
   #   types: [build]
 
 #trigger PR
-  # push:
-  # pull_request:
-  #   types: [closed, assigned, opened, reopened]
+  push:
+  pull_request:
+    types: [closed, assigned, opened, reopened]
 
 #trigger CRON
   # schedule:

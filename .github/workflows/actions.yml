@@ -1,12 +1,36 @@
 name: Actions Workflow
 
 on: #[push, pull_request]
-  repository_dispatch:
-    types: [build]
+  push:
+
+#trigger update file/folder
+    # paths:
+    #   - '**.js'
+    #   - '!filenam.js'
+    # paths-ignore:
+    #   - 'docs/**'  
+
+#trigger tags  
+    # tags:
+    #   - v1.*
+
+#trigger ramificações personalizadas  
+    # branches:
+    #   - master
+    #   - 'feature/*'
+    #   - 'feature/**'
+    #   - '!feature/featC' #branches-ignore
+
+#trigger request
+  # repository_dispatch: 
+  #   types: [build]
+
+#trigger PR
   # push:
   # pull_request:
   #   types: [closed, assigned, opened, reopened]
 
+#trigger CRON
   # schedule:
   #   - cron: "0/5 * * * *" # each * is: (1) minutes, (2) hours, (3) days of months, (4) months and (5) days of the week, respectively
   #   - cron: "0/6 * * * *"
@@ -16,8 +40,8 @@ jobs:
   run-github-actions:
     runs-on: ubuntu-latest
     steps:
-      - name: payload
-        run: echo ${{ github.event.client_payload.env}}
+      # - name: payload
+      #   run: echo ${{ github.event.client_payload.env}}
       - name: List Files
         run: |
           pwd

@@ -1,33 +1,33 @@
 name: Shell Commands
 
-on:
-  push:
-    branches:
-      - development
+on: [push]
 
 jobs:
   run-shell-commands:
     runs-on: ubuntu-latest
     steps:
+      - name: use context
+        run: eccho "${{ github.action }}"
+        continue-on-error: true
       - name: echo a string
         run: echo "Hello World"
-
       - name: multiline script
         run: |
           node -v
-          npm -v 
+          npm -v
       - name: python commands
         run: |
           import platform
           print(platform.processor())
         shell: python
-
   run-windows-commands:
     runs-on: windows-latest
-    needs: run-shell-commands
+    needs: ["run-shell-commands"] # Or needs: [run-shell-commands]
     steps:
+      - name: use context
+        run: echo "${{ github.action }}"
       - name: Directory Powershell
-        run: Get-Location             
+        run: Get-Location # In bash would be run "pwd"
       - name: Directory Bash
         run: pwd
-        shell: bash  
+        shell: bash

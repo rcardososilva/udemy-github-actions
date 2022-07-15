@@ -1,10 +1,14 @@
 name: Shell Commands
 
-on: [push]
+on:
+  push:
+    branches:
+      - development
 
 jobs:
   run-shell-commands:
     runs-on: ubuntu-latest
+    # timeout-minutes: 360
     steps:
       - name: use context
         run: eccho "${{ github.action }}"

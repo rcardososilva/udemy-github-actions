@@ -8,8 +8,11 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
         node_version: [6,8,10]
-      # fail-fast: true - Se algum teste matrix falhar, todos param, caso valor esteja false ele segue!
-      # max-parallel: 2 - Limitar o numero de jobs em execução.
+        exclude: # Excluir jobs da matrix
+         - os: ubuntu-latest
+           node_version: 6
+         - os: macos-latest
+           node_version: 8
     runs-on: ${{ matrix.os }}
     steps:
       - name: Log node version
@@ -18,4 +21,6 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Log node version
-        run: node -v
+        run: node -v   
+      # fail-fast: true - Se algum teste matrix falhar, todos param, caso valor esteja false ele segue!
+      # max-parallel: 2 - Limitar o numero de jobs em execução.

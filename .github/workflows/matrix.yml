@@ -1,3 +1,40 @@
+# name: Matrix
+
+# on: push
+
+# jobs:
+#   node-version:
+#     strategy:
+#       matrix:
+#         os: [macos-latest, ubuntu-latest, windows-latest]
+#         node_version: [6,8,10]
+#         is_ubuntu_8: "true"
+#         include: # Incluir novos jobs na matrix
+#           - os: ubuntu-latest
+#             node_version: 8
+#             is_ubuntu_8: "true"          
+#             node_version: 4        
+#         exclude: # Excluir jobs da matrix
+#          - os: ubuntu-latest
+#            node_version: 6
+#          - os: macos-latest
+#            node_version: 8
+#       # fail-fast: true - Se algum teste matrix falhar, todos param, caso valor esteja false ele segue!
+#       # max-parallel: 2 - Limitar o numero de jobs em execução.           
+#     runs-on: ${{ matrix.os }}
+#     env:
+#       IS_UBUNTU_8: ${{ matrix.is_ubuntu_8 }}    
+#     steps:
+#       - name: Log node version
+#         run: node -v
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: ${{ matrix.node_version }}
+#       - name: Log node version
+#         run: |
+#           node -v
+#           echo $IS_UBUNTU_8   
+
 name: Matrix
 
 on: push
@@ -8,22 +45,20 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
         node_version: [6,8,10]
-        is_ubuntu_8: "true"
-        include: # Incluir novos jobs na matrix
+        include:
           - os: ubuntu-latest
             node_version: 8
-            is_ubuntu_8: "true"          
-            node_version: 4        
-        exclude: # Excluir jobs da matrix
-         - os: ubuntu-latest
-           node_version: 6
-         - os: macos-latest
-           node_version: 8
-      # fail-fast: true - Se algum teste matrix falhar, todos param, caso valor esteja false ele segue!
-      # max-parallel: 2 - Limitar o numero de jobs em execução.           
+            is_ubuntu_8: "true"
+        exclude:
+          - os: ubuntu-latest
+            node_version: 6
+          - os: macos-latest
+            node_version: 8
+      # fail-fast: true
+      # max-parallel: 3
     runs-on: ${{ matrix.os }}
     env:
-      IS_UBUNTU_8: ${{ matrix.is_ubuntu_8 }}    
+      IS_UBUNTU_8: ${{ matrix.is_ubuntu_8 }}
     steps:
       - name: Log node version
         run: node -v
@@ -33,5 +68,4 @@ jobs:
       - name: Log node version
         run: |
           node -v
-          echo $IS_UBUNTU_8   
-
+          echo $IS_UBUNTU_8

@@ -7,16 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: node:18.1-alpine3.15
-```yaml
-name: Container
-
-on: push
-
-jobs:
-  node-docker:
-    runs-on: ubuntu-latest
-    container:
-      image: node:18.1-alpine3.15
       # env: (...)
       # ports: (...)
       # volumes: (...)
